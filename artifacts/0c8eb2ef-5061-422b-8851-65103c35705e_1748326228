@@ -1,0 +1,99 @@
+Here is an enhanced and clearer textual representation of the ER diagram for the AI-Powered Development Assistant project, along with detailed instructions for visualizing it:
+
+### Entities and Attributes Overview
+
+#### 1. **User**
+- **UserID** (PK)
+- **Username**
+- **Email**
+- **PasswordHash**
+- **Role**
+
+#### 2. **Project**
+- **ProjectID** (PK)
+- **Name**
+- **Version**
+- **Status**
+- **CreatedBy** (FK to User.UserID)
+
+#### 3. **Artifact**
+- **ArtifactID** (PK)
+- **Name**
+- **Type**
+- **Version**
+- **Content**
+- **CreatedAt**
+- **UpdatedAt**
+- **ProjectID** (FK to Project.ProjectID)
+
+#### 4. **Agent**
+- **AgentID** (PK)
+- **Name**
+- **Type**
+- **Configuration**
+
+#### 5. **WebSocket**
+- **ConnectionID** (PK)
+- **UserID** (FK to User.UserID)
+- **Status**
+- **CreatedAt**
+
+#### 6. **Webhook**
+- **WebhookID** (PK)
+- **URL**
+- **EventTypes**
+- **Status**
+- **ProjectID** (FK to Project.ProjectID)
+
+#### 7. **Versioning**
+- **VersionID** (PK)
+- **VersionNumber**
+- **Date**
+- **Changes**
+- **ArtifactID** (FK to Artifact.ArtifactID)
+
+### Relationships Summary
+- **User (1) ↔ Project (N)**: A user can create multiple projects.
+- **Project (1) ↔ Artifact (N)**: A project can have multiple artifacts.
+- **Artifact (M) ↔ Agent (M)**: Artifacts can be associated with multiple agents, and agents can handle multiple artifacts.
+- **User (1) ↔ WebSocket (N)**: A user can have multiple websocket connections.
+- **Project (1) ↔ Webhook (N)**: A project can have multiple webhooks.
+- **Artifact (1) ↔ Versioning (N)**: An artifact can have multiple versions.
+
+### Textual Representation of ER Diagram
+
+```plaintext
+[User] 1---* [Project]
+   |             |
+   |             * 
+   |           [Webhook]
+   |
+   *             1
+[WebSocket] ---- [Artifact] 1---* [Versioning]
+                * 
+               [Agent]
+```
+
+### Steps for Creating an ER Diagram
+
+1. **Select a Diagram Tool:**
+   - Use tools like **Lucidchart**, **draw.io**, or **ERDPlus** to create your diagram.
+
+2. **Draw Entity Boxes:**
+   - Create distinct rectangles for each entity (e.g., User, Project, Artifact, etc.).
+   - Within each rectangle, list the attributes with their primary key (PK) and foreign key (FK) designations.
+
+3. **Define Relationships:**
+   - Connect the entity boxes using lines to denote relationships.
+   - Use appropriate symbols (like a crow's foot) to indicate the cardinality (1:M, M:N).
+
+4. **Label Relationships:**
+   - Optionally, label each line to describe the nature of the relationship (e.g., "creates", "contains", "manages").
+
+5. **Finalize and Review:**
+   - Ensure all entities and relationships are accurately represented and clear.
+   - Validate the diagram against the data model to ensure no relationships or attributes are missing.
+
+### Conclusion
+
+Creating an ER diagram is a crucial step in understanding and organizing the data structures required for your project. As you continue the development of the AI-Powered Development Assistant, make sure to keep the diagram updated to reflect any changes or additions to the data model. This helps in maintaining clarity and consistency as the project evolves.
