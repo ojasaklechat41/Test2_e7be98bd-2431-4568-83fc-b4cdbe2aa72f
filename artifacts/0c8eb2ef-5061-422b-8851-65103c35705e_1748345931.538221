@@ -1,0 +1,93 @@
+The ER diagram you've outlined for the AI-Powered Development Assistant project is well-structured and captures the essential entities and relationships involved in the system. Below, I will provide a detailed overview, including a condensed textual representation and steps for creation.
+
+### Detailed Overview of Entities and Their Attributes:
+
+1. **User**
+   - **UserID**: Unique identifier for the user (PK)
+   - **Username**: Name chosen by the user
+   - **Email**: User's email address
+   - **PasswordHash**: Hashed password for authentication
+   - **Role**: Role of the user (Admin, User)
+
+2. **Project**
+   - **ProjectID**: Unique identifier for the project (PK)
+   - **Name**: Name of the project
+   - **Version**: Current version of the project
+   - **Status**: Current status (e.g., Active, Inactive)
+   - **CreatedBy**: ID of the user who created the project (FK)
+
+3. **Artifact**
+   - **ArtifactID**: Unique identifier for the artifact (PK)
+   - **Name**: Name of the artifact
+   - **Type**: Type of the artifact (JSON, Binary)
+   - **Version**: Current version of the artifact
+   - **Content**: Base64 encoded content of the artifact
+   - **CreatedAt**: Timestamp of creation
+   - **UpdatedAt**: Timestamp of last update
+   - **ProjectID**: ID of the project to which the artifact belongs (FK)
+
+4. **Agent**
+   - **AgentID**: Unique identifier for the agent (PK)
+   - **Name**: Name of the agent
+   - **Type**: Classification of the agent (LLM, Service)
+   - **Configuration**: Configuration settings (JSON format)
+
+5. **WebSocket**
+   - **ConnectionID**: Unique identifier for the websocket connection (PK)
+   - **UserID**: ID of the user associated with this connection (FK)
+   - **Status**: Current status of the connection
+   - **CreatedAt**: Timestamp of connection establishment
+
+6. **Webhook**
+   - **WebhookID**: Unique identifier for the webhook (PK)
+   - **URL**: Callback URL for the webhook
+   - **EventTypes**: Types of events that trigger the webhook (e.g., Artifact Created, Updated)
+   - **Status**: Current status of the webhook
+   - **ProjectID**: ID of the project associated with this webhook (FK)
+
+7. **Versioning**
+   - **VersionID**: Unique identifier for the version entry (PK)
+   - **VersionNumber**: Semantic version number
+   - **Date**: Date when this version was created
+   - **Changes**: Description of the changes made
+   - **ArtifactID**: ID of the artifact this version corresponds to (FK)
+
+### Relationships Summary:
+
+- **User (1) → Project (N)**: A user can create multiple projects.
+- **Project (1) → Artifact (N)**: A project can have multiple artifacts.
+- **Artifact (M) ↔ Agent (M)**: Artifacts can be interacted with by multiple agents and vice versa.
+- **User (1) → WebSocket (N)**: A user can have multiple websocket connections.
+- **Project (1) → Webhook (N)**: A project can have multiple webhooks.
+- **Artifact (1) → Versioning (N)**: An artifact can have multiple versions.
+
+### Textual Representation of ER Diagram:
+
+```plaintext
+[User] 1---* [Project]
+  |               |
+  |               * 
+  |             [Webhook]
+  |
+  *               1
+[WebSocket] ---- [Artifact] 1---* [Versioning]
+                * 
+               [Agent]
+```
+
+### Visualization Instructions:
+
+1. **Select a Tool:**
+   - Use diagramming tools such as **Lucidchart**, **draw.io**, or **ERDPlus** to design your ER diagram.
+   
+2. **Create Boxes for Each Entity:**
+   - Draw a rectangle for each entity and label it with the entity name.
+   - Inside each box, list down the attributes.
+
+3. **Draw Relationships:**
+   - Connect the boxes with lines to represent relationships.
+   - Label each line with the nature of the relationship (1:M, M:N).
+
+### Conclusion
+
+This ER diagram provides a solid framework for understanding the data structure necessary for the AI-Powered Development Assistant project. As development progresses, further refinements can be made based on evolving requirements or additional features.
