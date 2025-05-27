@@ -1,0 +1,94 @@
+Here’s a more refined representation of the ER (Entity-Relationship) diagram for the `AI-Powered Development Assistant` project, incorporating additional attributes and relationships:
+
+### ER Diagram Entities and Attributes:
+
+1. **User**
+   - Attributes: 
+     - UserID (Primary Key)
+     - Username
+     - Email
+     - PasswordHash
+     - Role (e.g., Admin, User)
+
+2. **Project**
+   - Attributes:
+     - ProjectID (Primary Key)
+     - Name
+     - Version
+     - Status
+     - CreatedBy (Foreign Key referencing UserID)
+
+3. **Artifact**
+   - Attributes:
+     - ArtifactID (Primary Key)
+     - Name
+     - Type (e.g., JSON, Binary)
+     - Version
+     - Content (Base64 encoded)
+     - CreatedAt
+     - UpdatedAt
+     - ProjectID (Foreign Key referencing ProjectID)
+
+4. **Agent**
+   - Attributes:
+     - AgentID (Primary Key)
+     - Name
+     - Type (e.g., LLM, Service)
+     - Configuration (JSON)
+
+5. **WebSocket**
+   - Attributes:
+     - ConnectionID (Primary Key)
+     - UserID (Foreign Key referencing UserID)
+     - Status
+     - CreatedAt
+
+6. **Webhook**
+   - Attributes:
+     - WebhookID (Primary Key)
+     - URL
+     - EventTypes (e.g., Artifact Created, Updated)
+     - Status
+     - ProjectID (Foreign Key referencing ProjectID)
+
+7. **Versioning**
+   - Attributes:
+     - VersionID (Primary Key)
+     - VersionNumber
+     - Date
+     - Changes (Description)
+     - ArtifactID (Foreign Key referencing ArtifactID)
+
+### Relationships:
+
+- **User** to **Project**: One-to-Many (A user can create multiple projects)
+- **Project** to **Artifact**: One-to-Many (A project can contain multiple artifacts)
+- **Artifact** to **Agent**: Many-to-Many (An artifact can be interacted with by multiple agents and vice versa)
+- **User** to **WebSocket**: One-to-Many (A user can have multiple websocket connections)
+- **Project** to **Webhook**: One-to-Many (A project can have multiple webhooks associated with it)
+- **Artifact** to **Versioning**: One-to-Many (An artifact can have multiple versions)
+
+### Textual Representation of ER Diagram:
+
+```
+[User] 1---* [Project]
+  |               |
+  |               * 
+  |             [Webhook]
+  |
+  *               1
+[WebSocket] ---- [Artifact] 1---* [Versioning]
+                * 
+               [Agent]
+```
+
+### Visualization Instructions:
+
+To visualize this ER diagram:
+1. **Use a Tool:** You can use online diagram tools like Lucidchart, draw.io, or ERDPlus to create and visualize the ER diagram. 
+2. **Create Boxes for Each Entity:** Create a box for each entity and list the attributes inside.
+3. **Draw Relationships:** Use lines to connect related entities, labeling the lines with the type of relationship (1:N, M:N).
+
+### Conclusion
+
+This textual description provides a comprehensive view of the entities and relationships within the `AI-Powered Development Assistant` project. Adjustments can be made as further requirements and details arise during development.
